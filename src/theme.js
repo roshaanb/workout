@@ -1,7 +1,7 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 
-// colour design tokens
+// color design tokens
 export const tokens = (mode) => ({
   ...(mode === "dark"
     ? {
@@ -20,7 +20,7 @@ export const tokens = (mode) => ({
           100: "#d0d1d5",
           200: "#a1a4ab",
           300: "#727681",
-          400: "#434957",
+          400: "#1F2A40",
           500: "#141b2d",
           600: "#101624",
           700: "#0c101b",
@@ -122,7 +122,7 @@ export const tokens = (mode) => ({
 
 // mui theme settings
 export const themeSettings = (mode) => {
-  const colours = tokens(mode);
+  const colors = tokens(mode);
   return {
     palette: {
       mode: mode,
@@ -130,32 +130,32 @@ export const themeSettings = (mode) => {
         ? {
             // palette values for dark mode
             primary: {
-              main: colours.primary[500],
+              main: colors.primary[500],
             },
             secondary: {
-              main: colours.greenAccent[500],
+              main: colors.greenAccent[500],
             },
             neutral: {
-              dark: colours.grey[700],
-              main: colours.grey[500],
-              light: colours.grey[100],
+              dark: colors.grey[700],
+              main: colors.grey[500],
+              light: colors.grey[100],
             },
             background: {
-              default: colours.primary[500],
+              default: colors.primary[500],
             },
           }
         : {
             // palette values for light mode
             primary: {
-              main: colours.primary[100],
+              main: colors.primary[100],
             },
             secondary: {
-              main: colours.greenAccent[500],
+              main: colors.greenAccent[500],
             },
             neutral: {
-              dark: colours.grey[700],
-              main: colours.grey[500],
-              light: colours.grey[100],
+              dark: colors.grey[700],
+              main: colors.grey[500],
+              light: colors.grey[100],
             },
             background: {
               default: "#fcfcfc",
@@ -195,13 +195,13 @@ export const themeSettings = (mode) => {
 
 // context for color mode
 export const ColorModeContext = createContext({
-  toggleColourMode: () => {},
+  toggleColorMode: () => {},
 });
 
 export const useMode = () => {
   const [mode, setMode] = useState("dark");
   const colorMode = useMemo(() => ({
-    toggleColourMode: () =>
+    toggleColorMode: () =>
       setMode((prev) => (prev === "light" ? "dark" : "light")),
   }));
 
