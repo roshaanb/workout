@@ -72,7 +72,7 @@ const Form = () => {
                 error={!!touched.firstName && !!errors.firstName}
                 helperText={touched.firstName && errors.firstName}
                 sx={{ gridColumn: "span 2" }}
-              />{" "}
+              />
               <TextField
                 fullWidth
                 variant="filled"

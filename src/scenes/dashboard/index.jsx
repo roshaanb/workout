@@ -34,7 +34,7 @@ const Dashboard = () => {
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download reports
           </Button>
-        </Box>{" "}
+        </Box>
       </Box>
 
       {/* grid and charts */}
@@ -45,6 +45,7 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* row 1 */}
+        {/* emails */}
         <Box
           gridColumn={"span 3"}
           backgroundColor={colors.primary[400]}
@@ -64,6 +65,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        {/* sales */}
         <Box
           gridColumn={"span 3"}
           backgroundColor={colors.primary[400]}
@@ -83,6 +85,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        {/* new clients */}
         <Box
           gridColumn={"span 3"}
           backgroundColor={colors.primary[400]}
@@ -102,6 +105,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        {/* traffic */}
         <Box
           gridColumn={"span 3"}
           backgroundColor={colors.primary[400]}
@@ -122,6 +126,7 @@ const Dashboard = () => {
           />
         </Box>
         {/* row 2 */}
+        {/* revenue */}
         <Box
           gridColumn={"span 8"}
           gridRow={"span 2"}
@@ -141,7 +146,7 @@ const Dashboard = () => {
                 color={colors.grey[100]}
               >
                 Revenue generated
-              </Typography>{" "}
+              </Typography>
               <Typography
                 variant="h3"
                 fontWeight={"bold"}
@@ -162,7 +167,7 @@ const Dashboard = () => {
             <LineChart isDashboard={true} />
           </Box>
         </Box>
-        {/* transactions */}
+        {/* recent transactions */}
         <Box
           gridColumn={"span 4"}
           gridRow={"span 2"}
@@ -218,11 +223,13 @@ const Dashboard = () => {
           ))}
         </Box>
         {/* row 3 */}
+        {/* campaign */}
         <Box
           gridColumn={"span 4"}
           gridRow={"span 2"}
           backgroundColor={colors.primary[400]}
           p={"30px"}
+          mb={"5px"}
         >
           <Typography variant="h5" fontWeight={"600"}>
             Campaign
@@ -246,10 +253,12 @@ const Dashboard = () => {
             </Typography>
           </Box>
         </Box>
+        {/* sales quantity */}
         <Box
           gridColumn={"span 4"}
           gridRow={"span 2"}
           backgroundColor={colors.primary[400]}
+          mb={"5px"}
         >
           <Typography
             variant="h5"
@@ -262,11 +271,13 @@ const Dashboard = () => {
             <BarChart isDashboard={true} />
           </Box>
         </Box>
+        {/* geography traffic */}
         <Box
           gridColumn={"span 4"}
           gridRow={"span 2"}
           backgroundColor={colors.primary[400]}
           p={"30px"}
+          mb={"5px"}
         >
           <Typography variant="h5" fontWeight={"600"} sx={{ mb: "15px" }}>
             Geography based traffic
