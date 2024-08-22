@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "node src/server.js",
+    "server": "nodemon src/server.js",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",

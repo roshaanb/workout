@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
-const Weights = () => {
+const WeightsGrouped = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -14,7 +14,7 @@ const Weights = () => {
   useEffect(() => {
     // Fetch data from the backend
     axios
-      .get("http://localhost:3001/api/data")
+      .get("http://localhost:3001/api/data/grouped")
       .then((response) => {
         setData(response.data.data);
       })
@@ -39,16 +39,16 @@ const Weights = () => {
       flex: 1,
     },
     {
-      field: "weight",
-      headerName: "Weight",
+      field: "max",
+      headerName: "6 rep equivalent session max",
       type: "number",
       headerAlign: "left",
       align: "left",
       flex: 1,
     },
     {
-      field: "reps",
-      headerName: "Reps",
+      field: "min",
+      headerName: "6 rep equivalent session min",
       type: "number",
       headerAlign: "left",
       align: "left",
@@ -58,7 +58,10 @@ const Weights = () => {
 
   return (
     <Box m="20px">
-      <Header title="Weights" subtitle="Raw weights data" />
+      <Header
+        title="Weights grouped"
+        subtitle="Calculates the maximum and minimum weight for the session (using 6 rep equivalent)"
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -103,4 +106,4 @@ const Weights = () => {
   );
 };
 
-export default Weights;
+export default WeightsGrouped;
