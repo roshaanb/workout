@@ -4,6 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import { sortDate } from "../../helpers";
 
 const Weights = () => {
   const theme = useTheme();
@@ -12,7 +13,6 @@ const Weights = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the backend
     axios
       .get("http://localhost:3001/api/data")
       .then((response) => {
@@ -25,10 +25,12 @@ const Weights = () => {
 
   const columns = [
     {
-      field: "formatted_date",
+      field: "date",
       headerName: "Date",
       cellClassName: "name-column--cell",
       flex: 0.7,
+      sortComparator: sortDate,
+      sortingOrder: ["desc", "asc"],
     },
     {
       field: "exercise",
@@ -96,6 +98,11 @@ const Weights = () => {
           density="compact"
           rows={data}
           columns={columns}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: "date", sort: "desc" }],
+            },
+          }}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
