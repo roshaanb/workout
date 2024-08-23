@@ -58,6 +58,38 @@ app.get("/api/data/grouped", (req, res) => {
   });
 });
 
+// API endpoint to fetch weights max line graph data
+app.get("/api/data/line", (req, res) => {
+  const query = `
+    SELECT 
+        id,
+        '[' || GROUP_CONCAT('{"x": "' || date || '", "y": ' || max || '}', ', ') || ']' as data
+    FROM 
+        (SELECT 
+        exercise as id,
+        STRFTIME('%Y-%m-%d', 
+        SUBSTR(date, 7, 4) || '-' || 
+        SUBSTR(date, 4, 2) || '-' || 
+        SUBSTR(date, 1, 2)
+        ) AS date,
+        max(cast(((weight*0.861) / (1.0278 - 0.0278*reps)) as int)) as max 
+      FROM rawWorkoutData
+      GROUP by  date, exercise
+      order BY date desc, exercise asc)
+    GROUP BY 
+        id;
+    `;
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      data: rows,
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

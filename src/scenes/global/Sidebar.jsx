@@ -198,6 +198,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
+              title="Weights Max Line Chart"
+              to="/weights-max-line"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
               title="Geography Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
