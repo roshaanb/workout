@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { tokens } from "../theme";
 import { Typography, useTheme } from "@mui/material";
+import { exercises } from "../helpers";
 
-const WeightsMaxLineChart = ({ isDashboard = false }) => {
+const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercises }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -31,9 +32,15 @@ const WeightsMaxLineChart = ({ isDashboard = false }) => {
         console.error("There was an error fetching the data!", error);
       });
   }, []);
+
+  let selectedData = [];
+  data.forEach((row) => {
+    if (selectedExercises.includes(row.id)) selectedData.push(row);
+  });
+
   return (
     <ResponsiveLine
-      data={data}
+      data={selectedData}
       theme={{
         axis: {
           domain: { line: { stroke: colors.grey[100] } },
@@ -63,7 +70,7 @@ const WeightsMaxLineChart = ({ isDashboard = false }) => {
       xFormat="time:%Y-%m-%d"
       yScale={{
         type: "linear",
-        min: "20",
+        min: "auto",
         max: "auto",
         stacked: false,
         reverse: false,

@@ -3,3 +3,5 @@ export const sortDate = (a, b) => {
     bb = b.split("/").reverse().join();
   return aa < bb ? -1 : aa > bb ? 1 : 0;
 };
+
+export const exercises = ["squat", "bench", "deadlift", "overhead press"];
