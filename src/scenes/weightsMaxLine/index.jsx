@@ -11,7 +11,7 @@ import Header from "../../components/Header";
 import WeightsMaxLineChart from "../../components/WeightsLineChart";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
-import { exercises } from "../../helpers";
+import { exerciseColors, exercises } from "../../helpers";
 
 const WeightsLine = () => {
   const theme = useTheme();
@@ -34,15 +34,29 @@ const WeightsLine = () => {
         subtitle={"Time series of weight maximums (6 rep equivalent)"}
       />
       <Box height="75vh">
-        {/* fix styling */}
         <FormControl component="fieldset">
-          <FormLabel component="legend">Select Exercises</FormLabel>
+          <FormLabel
+            style={{
+              visibility: "visible",
+              fontWeight: "bold",
+              color: colors.grey[100],
+            }}
+            component="legend"
+          >
+            Select Exercises
+          </FormLabel>
           <FormGroup row>
             {exercises.map((exercise) => (
               <FormControlLabel
                 key={exercise}
                 control={
                   <Checkbox
+                    sx={{
+                      color: exerciseColors[exercise],
+                      "&.Mui-checked": {
+                        color: exerciseColors[exercise],
+                      },
+                    }}
                     checked={selectedExercises.includes(exercise)}
                     onChange={() => handleCheckboxChange(exercise)}
                     name={exercise}

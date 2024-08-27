@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { tokens } from "../theme";
 import { Typography, useTheme } from "@mui/material";
-import { exercises } from "../helpers";
+import { exerciseColors, exercises, yscaleMininum } from "../helpers";
 
-const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercises }) => {
+const WeightsMaxLineChart = ({
+  isDashboard = false,
+  selectedExercises = exercises,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -18,7 +21,7 @@ const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercise
       .then((response) => {
         const output = [];
         let out = response.data.data;
-        out.map((exercise) => {
+        out.forEach((exercise) => {
           const parsedData = JSON.parse(exercise.data);
           let parsedRow = {
             id: exercise.id,
@@ -59,7 +62,7 @@ const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercise
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }}
+      colors={isDashboard ? { datum: "color" } : (el) => exerciseColors[el.id]}
       margin={{ top: 50, right: 110, bottom: 60, left: 60 }}
       xScale={{
         type: "time",
@@ -70,7 +73,7 @@ const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercise
       xFormat="time:%Y-%m-%d"
       yScale={{
         type: "linear",
-        min: "auto",
+        min: yscaleMininum(selectedExercises),
         max: "auto",
         stacked: false,
         reverse: false,
@@ -111,7 +114,7 @@ const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercise
         const formattedDate = `${day}/${month}/${year}`;
         return (
           <Box
-            backgroundColor={point.serieColor}
+            backgroundColor={exerciseColors[point.serieId]}
             padding="6px 8px"
             color={colors.primary[500]}
           >
@@ -128,32 +131,6 @@ const WeightsMaxLineChart = ({ isDashboard = false, selectedExercises = exercise
       pointLabelYOffset={-12}
       enableTouchCrosshair={true}
       useMesh={true}
-      legends={[
-        {
-          anchor: "bottom-right",
-          direction: "column",
-          justify: false,
-          translateX: 100,
-          translateY: 0,
-          itemsSpacing: 0,
-          itemDirection: "left-to-right",
-          itemWidth: 80,
-          itemHeight: 20,
-          itemOpacity: 0.75,
-          symbolSize: 12,
-          symbolShape: "circle",
-          symbolBorderColor: "rgba(0, 0, 0, .5)",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemBackground: "rgba(0, 0, 0, .03)",
-                itemOpacity: 1,
-              },
-            },
-          ],
-        },
-      ]}
     />
   );
 };
