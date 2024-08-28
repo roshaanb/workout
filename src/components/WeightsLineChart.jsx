@@ -18,21 +18,15 @@ const WeightsMaxLineChart = ({
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/data/line")
-      .then((response) => {
-        const output = [];
-        let out = response.data.data;
-        out.forEach((exercise) => {
-          const parsedData = JSON.parse(exercise.data);
-          let parsedRow = {
-            id: exercise.id,
-            data: parsedData,
-          };
-          output.push(parsedRow);
-        });
+      .then(({ data: { data: exercises } }) => {
+        const output = exercises.map(({ id, data }) => ({
+          id,
+          data: JSON.parse(data),
+        }));
         setData(output);
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error);
+        console.error("There was an error fetching the data", error);
       });
   }, []);
 
