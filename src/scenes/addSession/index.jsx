@@ -5,12 +5,22 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Autocomplete from "@mui/material/Autocomplete";
 import Header from "../../components/Header";
 import { exercises } from "../../helpers";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 let today = new Date().toJSON().slice(0, 10);
 
-const initialValues = {
+let initialValues = {
   date: today,
   reps: 6,
+  weight: 0,
+};
+
+const latestWeightVals = {
+  deadlift: 0,
+  bench: 0,
+  squat: 0,
+  "overhead press": 0,
 };
 
 const sessionSchema = yup.object().shape({
@@ -34,10 +44,25 @@ const sessionSchema = yup.object().shape({
 });
 
 const AddSession = () => {
+  const [data] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/data/line")
+      .then(({ data: { data: exercises } }) => {
+        exercises.forEach(({ id, data }) => {
+          latestWeightVals[id] = JSON.parse(data)[0].y;
+        });
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the data", error);
+      });
+  }, []);
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
-    console.log(values)
+    console.log("submitted values", values);
     alert("Session added successfully");
   };
 
@@ -98,6 +123,29 @@ const AddSession = () => {
                 )}
                 onChange={(e, value) => {
                   handleChange({ target: { name: "exercise", value } });
+                  if (value === "bench") {
+                    handleChange({
+                      target: { name: "weight", value: latestWeightVals.bench },
+                    });
+                  } else if (value === "deadlift") {
+                    handleChange({
+                      target: {
+                        name: "weight",
+                        value: latestWeightVals.deadlift,
+                      },
+                    });
+                  } else if (value === "overhead press") {
+                    handleChange({
+                      target: {
+                        name: "weight",
+                        value: latestWeightVals["overhead press"],
+                      },
+                    });
+                  } else if (value === "squat") {
+                    handleChange({
+                      target: { name: "weight", value: latestWeightVals.squat },
+                    });
+                  }
                 }}
                 value={values.exercise}
                 onBlur={handleBlur}
