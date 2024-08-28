@@ -8,6 +8,7 @@ import Weights from "./scenes/weights";
 import WeightsGrouped from "./scenes/weightsGrouped";
 import Contacts from "./scenes/contacts";
 import Invoices from "./scenes/invoices";
+import AddSession from "./scenes/addSession";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import FAQ from "./scenes/faq";
@@ -36,6 +37,7 @@ function App() {
               <Route path="/weights-grouped" element={<WeightsGrouped />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
+              <Route path="/add-session" element={<AddSession />} />
               <Route path="/form" element={<Form />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/faq" element={<FAQ />} />

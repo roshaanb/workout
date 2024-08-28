@@ -149,6 +149,13 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
+              title="Add session"
+              to="/add-session"
+              icon={<FitnessCenterOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
               title="Profile form"
               to="/form"
               icon={<PersonOutlinedIcon />}
