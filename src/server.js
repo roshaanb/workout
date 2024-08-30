@@ -78,6 +78,33 @@ app.get("/api/data/line", (req, res) => {
   });
 });
 
+// API endpoint to add new row
+app.use(express.json());
+app.post("/api/data", (req, res) => {
+  const { date, exercise, weight, reps } = req.body;
+  const query = `INSERT INTO rawWorkoutData (date, exercise, weight, reps) VALUES (?, ?, ?, ?)`;
+  db.run(query, [date, exercise, weight, reps], (err) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ message: "Row added successfully" });
+  });
+});
+
+// API endpoint to delete row
+app.delete("/api/data/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM rawWorkoutData WHERE id = ?`;
+  db.run(query, id, (err) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ message: `Row with id ${id} deleted successfully` });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

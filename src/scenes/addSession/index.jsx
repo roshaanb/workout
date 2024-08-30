@@ -1,11 +1,16 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Autocomplete from "@mui/material/Autocomplete";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import Header from "../../components/Header";
+import { tokens } from "../../theme";
 import { exercises } from "../../helpers";
-import { useState, useEffect } from "react";
+import { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 
 let today = new Date().toJSON().slice(0, 10);
@@ -44,7 +49,25 @@ const sessionSchema = yup.object().shape({
 });
 
 const AddSession = () => {
-  const [data] = useState([]);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  const [open, setOpen] = useState(false);
+
+  const action = (
+    <Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={() => {
+          setOpen(false);
+        }}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </Fragment>
+  );
 
   useEffect(() => {
     axios
@@ -61,9 +84,21 @@ const AddSession = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log("submitted values", values);
-    alert("Session added successfully");
+  const handleFormSubmit = ({ date, exercise, weight, reps }) => {
+    axios
+      .post("http://localhost:3001/api/data", {
+        date: date.split("-").reverse().join("/"),
+        exercise,
+        weight,
+        reps,
+      })
+      .then(() => {
+        setOpen(true);
+      })
+      .catch((err) => {
+        console.error("There was an error adding the weights session", err);
+        alert("There was an error adding the weights session");
+      });
   };
 
   return (
@@ -181,9 +216,30 @@ const AddSession = () => {
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button
+                type="submit"
+                color="secondary"
+                variant="contained"
+                disabled={open}
+              >
                 Add new session
               </Button>
+              <Snackbar
+                open={open}
+                autoHideDuration={1500}
+                onClose={() => {
+                  setOpen(false);
+                }}
+                action={action}
+              >
+                <Alert
+                  severity="success"
+                  variant="filled"
+                  sx={{ width: "100%", color: colors.primary[100] }}
+                >
+                  Session added successfully
+                </Alert>
+              </Snackbar>
             </Box>
           </form>
         )}
