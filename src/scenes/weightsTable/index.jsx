@@ -13,7 +13,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 
-const Weights = () => {
+const WeightsTable = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -232,4 +232,4 @@ const Weights = () => {
   );
 };
 
-export default Weights;
+export default WeightsTable;

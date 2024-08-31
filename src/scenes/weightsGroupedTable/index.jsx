@@ -6,7 +6,7 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { sortDate } from "../../helpers";
 
-const WeightsGrouped = () => {
+const WeightsGroupedTable = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -113,4 +113,4 @@ const WeightsGrouped = () => {
   );
 };
 
-export default WeightsGrouped;
+export default WeightsGroupedTable;

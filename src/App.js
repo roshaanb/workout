@@ -4,8 +4,8 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
-import Weights from "./scenes/weights";
-import WeightsGrouped from "./scenes/weightsGrouped";
+import WeightsTable from "./scenes/weightsTable";
+import WeightsGroupedTable from "./scenes/weightsGroupedTable";
 import Contacts from "./scenes/contacts";
 import Invoices from "./scenes/invoices";
 import AddSession from "./scenes/addSession";
@@ -15,6 +15,7 @@ import FAQ from "./scenes/faq";
 import Bar from "./scenes/bar";
 import Pie from "./scenes/pie";
 import Line from "./scenes/line";
+import WeightsSessionLine from "./scenes/weightsSessionLine";
 import WeightsMaxLine from "./scenes/weightsMaxLine";
 import Geography from "./scenes/geography";
 import { Routes, Route } from "react-router-dom";
@@ -33,8 +34,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
-              <Route path="/weights" element={<Weights />} />
-              <Route path="/weights-grouped" element={<WeightsGrouped />} />
+              <Route path="/weights" element={<WeightsTable />} />
+              <Route path="/weights-grouped" element={<WeightsGroupedTable />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/add-session" element={<AddSession />} />
@@ -44,6 +45,10 @@ function App() {
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
+              <Route
+                path="/weights-session-line"
+                element={<WeightsSessionLine />}
+              />
               <Route path="/weights-max-line" element={<WeightsMaxLine />} />
               <Route path="/geography" element={<Geography />} />
             </Routes>

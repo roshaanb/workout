@@ -205,6 +205,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
+              title="Weights Session Line Chart"
+              to="/weights-session-line"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
               title="Weights Max Line Chart"
               to="/weights-max-line"
               icon={<TimelineOutlinedIcon />}

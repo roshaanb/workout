@@ -8,12 +8,12 @@ import {
   Box,
 } from "@mui/material";
 import Header from "../../components/Header";
-import WeightsMaxLineChart from "../../components/WeightsMaxLineChart";
+import WeightsSessionLineChart from "../../components/WeightsSessionLineChart";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { exerciseColors, exercises } from "../../helpers";
 
-const WeightsMaxLine = () => {
+const WeightsSessionLine = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -67,10 +67,10 @@ const WeightsMaxLine = () => {
             ))}
           </FormGroup>
         </FormControl>
-        <WeightsMaxLineChart selectedExercises={selectedExercises} />
+        <WeightsSessionLineChart selectedExercises={selectedExercises} />
       </Box>
     </Box>
   );
 };
 
-export default WeightsMaxLine;
+export default WeightsSessionLine;
