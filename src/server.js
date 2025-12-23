@@ -47,7 +47,7 @@ app.get("/api/data/grouped", (req, res) => {
   });
 });
 
-// API endpoint to fetch weights max line graph data
+// API endpoint to fetch weights line graph data
 app.get("/api/data/line", (req, res) => {
   const query = `
     SELECT 
@@ -62,11 +62,34 @@ app.get("/api/data/line", (req, res) => {
           SUBSTR(date, 4, 2) || '-' || 
           SUBSTR(date, 1, 2)
           ) AS date,
-          max(cast(((weight*0.861) / (1.0278 - 0.0278*reps)) as int)) as max
+          max(cast(((weight*0.861) / (1.0278 - 0.0278*reps)) as int)) as max,
+          min(cast(((weight*0.861) / (1.0278 - 0.0278*reps)) as int)) as min
         FROM rawWorkoutData
         GROUP BY date, exercise
         order BY date DESC, exercise ASC)
     GROUP BY id;`;
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      data: rows,
+    });
+  });
+});
+
+// API endpoint to fetch weekly weights volume data
+app.get("/api/data/volume-bar", (req, res) => {
+  const query = `
+    SELECT 
+      id,
+      date,
+      exercise,
+      SUM(weight * reps) AS volume 
+    FROM rawWorkoutData
+    GROUP BY date, exercise
+    ORDER BY id;`;
   db.all(query, [], (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
