@@ -30,8 +30,10 @@ const WeightsSessionLine = () => {
   return (
     <Box m="20px">
       <Header
-        title={"Weights maximums line chart"}
-        subtitle={"Time series of weight session maximums (6 rep equivalent)"}
+        title={"Weights sessions line chart"}
+        subtitle={
+          "Time series of weight sessions (adjusted to 6 rep equivalent)"
+        }
       />
       <Box height="75vh">
         <FormControl component="fieldset">
