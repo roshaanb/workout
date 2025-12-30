@@ -24,3 +24,4 @@ yarn-error.log*
 todo.md
 weights.csv
 workout_data.db
+mockData.json
